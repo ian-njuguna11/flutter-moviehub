@@ -10,11 +10,17 @@ import 'package:flutter_moviehub/resources/api_provider.dart';
 class Repository {
   final apiProvider = ApiProvider();
 
-  Future<MovieList> getUpcomingMovies() => apiProvider.getMovies(MovieType.UPCOMING);
+  Future<MovieList> getUpcomingMovies() =>
+      apiProvider.getMovies(MovieType.UPCOMING);
 
-  Future<MovieList> getPopularMovies() => apiProvider.getMovies(MovieType.POPULAR);
+  Future<MovieList> getPopularMovies() =>
+      apiProvider.getMovies(MovieType.POPULAR);
 
-  Future<MovieList> getTopRatedMovies() => apiProvider.getMovies(MovieType.TOP_RATED);
+  Future<MovieList> getTopRatedMovies() =>
+      apiProvider.getMovies(MovieType.TOP_RATED);
 
-  Future<Movie> getMovie(int id) => apiProvider.getMovie(id);
+  Future<Movie> getMovie(int movieId) => apiProvider.getMovie(movieId);
+
+  Future<Trailer> getMovieTrailers(int movieId) =>
+      apiProvider.getMovieTrailers(movieId);
 }
