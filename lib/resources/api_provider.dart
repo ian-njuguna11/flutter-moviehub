@@ -22,13 +22,23 @@ class ApiProvider {
     }
   }
 
-  Future<Movie> getMovie(int id) async {
-    final response = await client.get('$baseUrl/$id?api_key=$apiKey');
+  Future<Movie> getMovie(int movieId) async {
+    final response = await client.get('$baseUrl/$movieId?api_key=$apiKey');
     if (response.statusCode == HttpStatus.ok) {
       print(response.request.url.toString());
       return Movie(json.decode(response.body));
     } else {
       throw Exception('Failed to load movie');
+    }
+  }
+
+  Future<Trailer> getMovieTrailers(int movieId) async {
+    final response = await client.get('$baseUrl/$movieId/videos?api_key=$apiKey');
+    if(response.statusCode == HttpStatus.ok) {
+      print(response.request.url.toString());
+      return Trailer(json.decode(response.body));
+    } else {
+      throw Exception('Failed to love movie trailers');
     }
   }
 }
