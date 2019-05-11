@@ -3,23 +3,37 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter_moviehub/blocs/base_bloc.dart';
-import 'package:flutter_moviehub/model/movie.dart';
+import 'package:flutter_moviehub/model/models.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieDetailBloc extends BaseBloc {
-  final fetcher = PublishSubject<Movie>();
-  Observable<Movie> get movieDetailStream => fetcher.stream;
+  final _movieId = PublishSubject<int>();
 
-  getMovie(int id) async {
-    Movie movie = await repository.getMovie(id);
-    fetcher.sink.add(movie);
+  final _fetchMovie = BehaviorSubject<Movie>();
+  Observable<Movie> get movieDetailStream => _fetchMovie.stream;
+
+  final _fetchMovieTrailers = BehaviorSubject<Trailer>();
+  Observable<Trailer> get movieTrailersStream => _fetchMovieTrailers.stream;
+
+  // TODO: Convert similar to trailer id when usage is also mgirated
+  getMovie(int movieId) async {
+    Movie movie = await repository.getMovie(movieId);
+    _fetchMovie.sink.add(movie);
+  }
+
+  getMovieTrailers(int movieId) async {
+    _movieId.sink.add(movieId);
   }
 
   @override
-  dispose() {
+  dispose() async {
     super.dispose();
-    fetcher.close();
+    _movieId.close();
+    
+    await _fetchMovie.drain();
+    _fetchMovie.close();
+
+    await _fetchMovieTrailers.drain();
+    _fetchMovieTrailers.close();
   }
 }
-
-final movieDetaiBloc = MovieDetailBloc();
