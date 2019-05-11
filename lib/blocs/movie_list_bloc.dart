@@ -6,7 +6,7 @@ import 'package:flutter_moviehub/blocs/base_bloc.dart';
 import 'package:flutter_moviehub/model/models.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MovieListBloc extends BaseBloc<MovieList> {
+class MovieListBloc extends BaseBloc {
   final upcomingFetcher = PublishSubject<MovieList>();
   final popularFetcher = PublishSubject<MovieList>();
   final topRatedFetcher = PublishSubject<MovieList>();

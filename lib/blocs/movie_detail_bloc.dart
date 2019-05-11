@@ -6,7 +6,7 @@ import 'package:flutter_moviehub/blocs/base_bloc.dart';
 import 'package:flutter_moviehub/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MovieDetailBloc extends BaseBloc<Movie> {
+class MovieDetailBloc extends BaseBloc {
   final fetcher = PublishSubject<Movie>();
   Observable<Movie> get movieDetailStream => fetcher.stream;
 
