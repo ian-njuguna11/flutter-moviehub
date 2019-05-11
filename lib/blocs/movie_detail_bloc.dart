@@ -15,6 +15,30 @@ class MovieDetailBloc extends BaseBloc {
   final _fetchMovieTrailers = BehaviorSubject<Trailer>();
   Observable<Trailer> get movieTrailersStream => _fetchMovieTrailers.stream;
 
+  MovieDetailBloc() {
+    _movieId.stream.transform(_streamTransformer()).pipe(_fetchMovieTrailers);
+  }
+
+  @override
+  dispose() async {
+    super.dispose();
+    _movieId.close();
+
+    await _fetchMovie.drain();
+    _fetchMovie.close();
+
+    await _fetchMovieTrailers.drain();
+    _fetchMovieTrailers.close();
+  }
+
+  _streamTransformer() {
+    return ScanStreamTransformer(
+        (Future<Trailer> trailer, int movieId, int index) {
+      trailer = repository.getMovieTrailers(movieId);
+      return trailer;
+    });
+  }
+
   // TODO: Convert similar to trailer id when usage is also mgirated
   getMovie(int movieId) async {
     Movie movie = await repository.getMovie(movieId);
@@ -23,17 +47,5 @@ class MovieDetailBloc extends BaseBloc {
 
   getMovieTrailers(int movieId) async {
     _movieId.sink.add(movieId);
-  }
-
-  @override
-  dispose() async {
-    super.dispose();
-    _movieId.close();
-    
-    await _fetchMovie.drain();
-    _fetchMovie.close();
-
-    await _fetchMovieTrailers.drain();
-    _fetchMovieTrailers.close();
   }
 }
