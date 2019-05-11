@@ -6,3 +6,4 @@ export 'base_model.dart';
 export 'movie.dart';
 export 'movie_list.dart';
 export 'genre.dart';
+export 'trailer.dart';

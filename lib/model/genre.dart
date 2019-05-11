@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-import 'package:flutter_moviehub/model/models.dart';
+import 'base_model.dart';
 
 class Genre extends BaseModel {
   int id;
