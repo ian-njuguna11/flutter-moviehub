@@ -39,7 +39,7 @@ class ShowcaseListViewState extends BaseListView<ShowcaseListView, MovieList> {
       stream: movieListBloc.upcomingMoviesList,
       builder: (context, AsyncSnapshot<MovieList> snapshot) {
         if (snapshot.hasData) {
-          return buildListView(snapshot, context);
+          return buildListView(context, snapshot.data);
         } else if (snapshot.hasError) {
           return Center(
             child: Text(
@@ -62,8 +62,8 @@ class ShowcaseListViewState extends BaseListView<ShowcaseListView, MovieList> {
 
   @override
   Widget buildListView(
-    AsyncSnapshot<MovieList> snapshot,
     BuildContext context,
+    MovieList movies,
   ) {
     return Container(
       child: Column(
@@ -80,11 +80,11 @@ class ShowcaseListViewState extends BaseListView<ShowcaseListView, MovieList> {
             pauseAutoPlayOnTouch: Duration(seconds: 10),
             enlargeCenterPage: true,
             onPageChanged: (index) {
-              var movie = snapshot.data.results[index];
+              var movie = movies.results[index];
               onShowcasedMovieChanged(movie);
             },
             scrollDirection: Axis.horizontal,
-            items: snapshot.data.results.map(
+            items: movies.results.map(
               (movie) {
                 return Builder(
                   builder: (BuildContext context) {
