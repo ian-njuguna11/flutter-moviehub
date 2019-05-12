@@ -4,10 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/blocs/home_bloc.dart';
-import 'package:flutter_moviehub/constants/moviedb.dart';
 import 'package:flutter_moviehub/model/movie_list.dart';
 import 'package:flutter_moviehub/widgets/list/movie_list_view.dart';
-import 'package:flutter_moviehub/widgets/list/movie_list_view_old.dart';
 import 'package:flutter_moviehub/widgets/list/showcase_list_view.dart';
 import 'package:flutter_moviehub/widgets/views/section_header_view.dart';
 import 'package:flutter_moviehub/widgets/views/showcase_banner_view.dart';
@@ -130,7 +128,12 @@ class HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: <Widget>[
           buildSectionHeaderView('Top Rated'),
-          MovieListViewOld(type: MovieType.TOP_RATED),
+          StreamBuilder(
+            stream: bloc.topRatedMoviesList,
+            builder: (context, AsyncSnapshot<MovieList> snapshot) {
+              return MovieListView(sMovies: snapshot);
+            },
+          ),
         ],
       ),
     );
