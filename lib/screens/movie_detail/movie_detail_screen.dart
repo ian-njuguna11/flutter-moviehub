@@ -86,10 +86,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
     );
   }
 
-  Widget _buildMovieDetailView(
-    BuildContext context,
-    Movie movie,
-  ) {
+  Widget _buildMovieDetailView(BuildContext context, Movie movie) {
     return ScrollConfiguration(
       behavior: ScrollBehavior(),
       child: SingleChildScrollView(
@@ -105,10 +102,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
     );
   }
 
-  Widget _buildBannerView(
-    BuildContext context,
-    Movie movie,
-  ) {
+  Widget _buildBannerView(BuildContext context, Movie movie) {
     var width = MediaQuery.of(context).size.width;
     var height = width / 1.5;
     return Container(
