@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 abstract class BaseListView<T extends StatefulWidget, M> extends State<T> {
   Widget buildListView(
-    AsyncSnapshot<M> snapshot,
     BuildContext context,
+    M model,
   );
 
   Widget buildShimmerListView() {
