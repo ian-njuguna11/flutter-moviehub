@@ -8,18 +8,32 @@
 
 A simple Flutter application that retrieves movies from the TheMovieDB API using BLoC Pattern
 
-#### TODO 
-- [ ] Movie List View Page
+#### TODOs
+> I created this project to continue my journey tinkering the fundamental concepts building and shipping quality mobile apps and also, to help me grow my knowledge in **Flutter**
+
+**Learning about using Widgets, Screens, Navigation, Routing, Importing 3rd Party Dart Packages**
+- [X] Movie List View Page
 - [ ] Movie Detail View Page
-- [ ] Video
+- [ ] Trailers
 - [ ] Screenshots
-- [ ] Favorites
-- [ ] Navigation Drawer
-- [ ] Watch Later
 - [ ] Info Modal
-- [ ] Solid BLoC Architecture Implementation
-- [ ] Flare Animations
+- [X] Shimmer Loading Views
+
+**Learning about implementing Network Calls, API**
+- [X] BLoC Pattern (Single and Scoped Instance)
+
+**Learning about applying Data Persistence**
+- [ ] Data Caching
+- [ ] Favorites
+- [ ] Watch Later
+
+**Learning about Animations**
+- [ ] 2D Flare Animations
+
+**Learning about Custom Package**
 - [ ] Custom Dart Package Sample
+
+> *List to be updated*
 
 #### Overview
 
