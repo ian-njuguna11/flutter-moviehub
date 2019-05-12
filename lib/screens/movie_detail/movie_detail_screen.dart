@@ -40,7 +40,14 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: _buildAppBar(),
+      backgroundColor: Colors.black,
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildAppBar() {
+    return AppBar(
         title: Image.asset(
           'images/moviehub.png',
           height: 30,
@@ -64,9 +71,11 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
             onPressed: () {},
           ),
         ],
-      ),
-      backgroundColor: Colors.black,
-      body: StreamBuilder(
+      );
+  }
+
+  Widget _buildBody() {
+    return StreamBuilder(
         stream: bloc.movieDetailStream,
         builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
           if (snapshot.hasData) {
@@ -82,8 +91,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
             child: CircularProgressIndicator(),
           );
         },
-      ),
-    );
+      );
   }
 
   Widget _buildMovieDetailView(BuildContext context, Movie movie) {
