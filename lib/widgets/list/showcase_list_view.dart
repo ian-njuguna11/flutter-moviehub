@@ -12,7 +12,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ShowcaseListView extends StatefulWidget {
-  AsyncSnapshot<MovieList> sMovies;
+  final AsyncSnapshot<MovieList> sMovies;
 
   ShowcaseListView({Key key, this.sMovies}) : super(key: key);
 

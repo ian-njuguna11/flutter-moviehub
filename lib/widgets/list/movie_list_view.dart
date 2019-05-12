@@ -8,7 +8,7 @@ import 'package:flutter_moviehub/widgets/items/movie_item_view.dart';
 import 'package:flutter_moviehub/widgets/items/shimmer/movie_item_shimmer_view.dart';
 
 class MovieListView extends StatelessWidget {
-  AsyncSnapshot<MovieList> sMovies;
+  final AsyncSnapshot<MovieList> sMovies;
 
   MovieListView({Key key, this.sMovies}) : super(key: key);
 

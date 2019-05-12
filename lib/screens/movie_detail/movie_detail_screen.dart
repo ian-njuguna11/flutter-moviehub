@@ -10,7 +10,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_moviehub/blocs/movie_detail_bloc.dart';
 
 class MovieDetailScreen extends StatefulWidget {
-  int movieId;
+  final int movieId;
 
   MovieDetailScreen({Key key, this.movieId}) : super(key: key);
 
