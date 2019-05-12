@@ -37,7 +37,7 @@ class ShowcaseListViewState extends State<ShowcaseListView> {
       return Center(child: Text(widget.sMovies.error.toString()));
     }
     // Display shimmer loading view
-    return _buildMovieShowcaseDetailsShimmerView(context);
+    return _buildShowcaseListShimmerView(context);
   }
 
   onShowcasedMovieChanged(Movie movie) {
