@@ -71,9 +71,12 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         elevation: 0.0,
-        leading: Icon(
-          Icons.arrow_back,
-          color: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
         actions: <Widget>[
           IconButton(
@@ -116,7 +119,9 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
               color: Colors.transparent,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage('https://image.tmdb.org/t/p/w500${movie.backdropPath}',),
+                image: NetworkImage(
+                  'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                ),
               ),
             ),
             height: height,
