@@ -3,64 +3,30 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_moviehub/blocs/movie_list_bloc.dart';
-import 'package:flutter_moviehub/constants/moviedb.dart';
 import 'package:flutter_moviehub/model/models.dart';
 import 'package:flutter_moviehub/widgets/items/movie_item_view.dart';
 import 'package:flutter_moviehub/widgets/items/shimmer/movie_item_shimmer_view.dart';
-import 'package:flutter_moviehub/widgets/list/base_list_view.dart';
 
-class MovieListView extends StatefulWidget {
-  String type;
+class MovieListView extends StatelessWidget {
+  AsyncSnapshot<MovieList> sMovies;
 
-  MovieListView({Key key, this.type}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return MovieListViewState();
-  }
-}
-
-class MovieListViewState extends BaseListView<MovieListView, MovieList> {
-  @override
-  void initState() {
-    super.initState();
-
-    // Retrieve movies based on the requested type
-    _getMovies(widget.type);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    // Dispose resources
-    movieListBloc.dispose();
-  }
+  MovieListView({Key key, this.sMovies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      // Retrieve streams based on the requested movie type
-      stream: _getMovieStream(widget.type),
-      builder: (context, AsyncSnapshot<MovieList> snapshot) {
-        if (snapshot.hasData) {
-          return buildListView(context, snapshot.data);
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              snapshot.error.toString(),
-            ),
-          );
-        }
-        return buildShimmerListView();
-      },
-    );
+    if (sMovies.hasData) {
+      // Populate list view with the data
+      return _buildListView(context, sMovies.data);
+    } else if (sMovies.hasError) {
+      // Display loading indicator
+      return Center(child: Text(sMovies.error.toString()));
+    }
+    // Display shimmer loading view
+    return _buildShimmerListView(context);
   }
 
-  @override
-  Widget buildListView(BuildContext context, MovieList movies) {
-    var rootWidth = MediaQuery.of(context).size.width;
+  Widget _buildListView(BuildContext context, MovieList movies) {
+    final rootWidth = MediaQuery.of(context).size.width;
     return Container(
       height: rootWidth / 1.75,
       child: ListView.builder(
@@ -73,9 +39,8 @@ class MovieListViewState extends BaseListView<MovieListView, MovieList> {
     );
   }
 
-  @override
-  Widget buildShimmerListView() {
-    var rootWidth = MediaQuery.of(context).size.width;
+  Widget _buildShimmerListView(BuildContext context) {
+    final rootWidth = MediaQuery.of(context).size.width;
     return Container(
       height: rootWidth / 1.75,
       child: ListView.builder(
@@ -86,25 +51,5 @@ class MovieListViewState extends BaseListView<MovieListView, MovieList> {
         },
       ),
     );
-  }
-
-  _getMovies(String type) async {
-    if (type == MovieType.UPCOMING) {
-      movieListBloc.getUpcomingMovies();
-    } else if (type == MovieType.TOP_RATED) {
-      movieListBloc.getTopRatedMovies();
-    } else {
-      movieListBloc.getPopularMovies();
-    }
-  }
-
-  _getMovieStream(String type) {
-    if (type == MovieType.UPCOMING) {
-      return movieListBloc.upcomingMoviesList;
-    } else if (type == MovieType.TOP_RATED) {
-      return movieListBloc.topRatedMoviesList;
-    } else {
-      return movieListBloc.popularMoviesList;
-    }
   }
 }
