@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_moviehub/blocs/movie_detail_bloc_provider.dart';
 import 'package:flutter_moviehub/constants/fonts.dart';
 import 'package:flutter_moviehub/model/movie.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -20,28 +21,26 @@ class MovieDetailScreen extends StatefulWidget {
 }
 
 class MovieDetailScreenState extends State<MovieDetailScreen> {
-  
-  @override
-  void initState() {
-    super.initState();
+  MovieDetailBloc bloc;
 
-    // Retrieve movie details
-    movieDetaiBloc.getMovie(widget.movieId);
+  @override
+  void didChangeDependencies() {
+    bloc = MovieDetailBlocProvider.of(context);
+    bloc.getMovie(widget.movieId);
+    bloc.getMovieTrailers(widget.movieId);
+    super.didChangeDependencies();
   }
 
   @override
   void dispose() {
+    bloc.dispose();
     super.dispose();
-    
-    // TODO: Possible memory leak, should check out for BLoC providers to re-initialize bloc objects
-    // Dispose resources
-    // movieDetaiBloc.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: movieDetaiBloc.movieDetailStream,
+      stream: bloc.movieDetailStream,
       builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
         if (snapshot.hasData) {
           return _buildMovieDetailView(context, snapshot.data);

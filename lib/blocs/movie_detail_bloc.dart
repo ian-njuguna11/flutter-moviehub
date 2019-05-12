@@ -9,11 +9,11 @@ import 'package:rxdart/rxdart.dart';
 class MovieDetailBloc extends BaseBloc {
   final _movieId = PublishSubject<int>();
 
-  final _fetchMovie = BehaviorSubject<Movie>();
+  final _fetchMovie = PublishSubject<Movie>();
   Observable<Movie> get movieDetailStream => _fetchMovie.stream;
 
-  final _fetchMovieTrailers = BehaviorSubject<Trailer>();
-  Observable<Trailer> get movieTrailersStream => _fetchMovieTrailers.stream;
+  final _fetchMovieTrailers = BehaviorSubject<Future<Trailer>>();
+  Observable<Future<Trailer>> get movieTrailersStream => _fetchMovieTrailers.stream;
 
   MovieDetailBloc() {
     _movieId.stream.transform(_streamTransformer()).pipe(_fetchMovieTrailers);

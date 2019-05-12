@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_moviehub/blocs/movie_detail_bloc_provider.dart';
 import 'package:flutter_moviehub/model/movie.dart';
 import 'package:flutter_moviehub/screens/movie_detail/movie_detail_screen.dart';
 
@@ -32,8 +33,10 @@ Widget buildMovieItemView(BuildContext context, Movie movie) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MovieDetailScreen(
-                    movieId: movie.id,
+              builder: (context) => MovieDetailBlocProvider(
+                    child: MovieDetailScreen(
+                      movieId: movie.id,
+                    ),
                   ),
             ),
           ),
