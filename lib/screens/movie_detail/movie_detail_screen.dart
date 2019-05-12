@@ -39,29 +39,6 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: bloc.movieDetailStream,
-      builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
-        if (snapshot.hasData) {
-          return _buildMovieDetailView(context, snapshot.data);
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              snapshot.error.toString(),
-            ),
-          );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-  }
-
-  Widget _buildMovieDetailView(
-    BuildContext context,
-    Movie movie,
-  ) {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -89,17 +66,40 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
         ],
       ),
       backgroundColor: Colors.black,
-      body: ScrollConfiguration(
-        behavior: ScrollBehavior(),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildBannerView(context, movie),
-              _buildMovieDescription(movie.overview),
-              _buildMovieActions(),
-            ],
-          ),
+      body: StreamBuilder(
+        stream: bloc.movieDetailStream,
+        builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
+          if (snapshot.hasData) {
+            return _buildMovieDetailView(context, snapshot.data);
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                snapshot.error.toString(),
+              ),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildMovieDetailView(
+    BuildContext context,
+    Movie movie,
+  ) {
+    return ScrollConfiguration(
+      behavior: ScrollBehavior(),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildBannerView(context, movie),
+            _buildMovieDescription(movie.overview),
+            _buildMovieActions(),
+          ],
         ),
       ),
     );
