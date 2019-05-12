@@ -19,27 +19,27 @@ class HomeBloc extends BaseBloc {
   Observable<MovieList> get popularMoviesList => popularFetcher.stream;
   Observable<MovieList> get topRatedMoviesList => topRatedFetcher.stream;
 
-  getUpcomingMovies() async {
-    MovieList movieList = await repository.getUpcomingMovies();
-    upcomingFetcher.sink.add(movieList);
-  }
-
-  getPopularMovies() async {
-    MovieList movieList = await repository.getPopularMovies();
-    popularFetcher.sink.add(movieList);
-  }
-
-  getTopRatedMovies() async {
-    MovieList movieList = await repository.getTopRatedMovies();
-    topRatedFetcher.sink.add(movieList);
-  }
-
   @override
   dispose() {
     super.dispose();
     upcomingFetcher.close();
     popularFetcher.close();
     topRatedFetcher.close();
+  }
+
+  void getUpcomingMovies() async {
+    MovieList movieList = await repository.getUpcomingMovies();
+    upcomingFetcher.sink.add(movieList);
+  }
+
+  void getPopularMovies() async {
+    MovieList movieList = await repository.getPopularMovies();
+    popularFetcher.sink.add(movieList);
+  }
+
+  void getTopRatedMovies() async {
+    MovieList movieList = await repository.getTopRatedMovies();
+    topRatedFetcher.sink.add(movieList);
   }
 }
 

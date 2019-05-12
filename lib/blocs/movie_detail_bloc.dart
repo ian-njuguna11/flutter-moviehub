@@ -16,7 +16,7 @@ class MovieDetailBloc extends BaseBloc {
   Observable<Trailer> get movieTrailersStream => _fetchMovieTrailers.stream;
 
   @override
-  dispose() async {
+  void dispose() async {
     super.dispose();
     _movieId.close();
 
@@ -26,12 +26,12 @@ class MovieDetailBloc extends BaseBloc {
     await _fetchMovieTrailers.drain();
     _fetchMovieTrailers.close();
   }
-  getMovie(int movieId) async {
+  void getMovie(int movieId) async {
     Movie movie = await repository.getMovie(movieId);
     _fetchMovie.sink.add(movie);
   }
 
-  getMovieTrailers(int movieId) async {
+  void getMovieTrailers(int movieId) async {
     Trailer trailer = await repository.getMovieTrailers(movieId);
     _fetchMovieTrailers.sink.add(trailer);
   }

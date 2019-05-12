@@ -6,5 +6,5 @@ import 'package:flutter_moviehub/resources/repository.dart';
 
 abstract class BaseBloc {
   final repository = Repository();
-  dispose() {}
+  void dispose() {}
 }
