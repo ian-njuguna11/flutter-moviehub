@@ -3,53 +3,41 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_moviehub/blocs/movie_list_bloc.dart';
 import 'package:flutter_moviehub/constants/fonts.dart';
 import 'package:flutter_moviehub/model/models.dart';
 import 'package:flutter_moviehub/widgets/items/shimmer/showcase_item_shimmer_view.dart';
 import 'package:flutter_moviehub/widgets/items/showcase_item_view.dart';
-import 'package:flutter_moviehub/widgets/list/base_list_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ShowcaseListView extends StatefulWidget {
+  AsyncSnapshot<MovieList> sMovies;
+
+  ShowcaseListView({Key key, this.sMovies}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return ShowcaseListViewState();
   }
 }
 
-class ShowcaseListViewState extends BaseListView<ShowcaseListView, MovieList> {
+class ShowcaseListViewState extends State<ShowcaseListView> {
   String currentMovieTitle = '';
   String currentMovieDescription = '';
   double currentMovieRating = 0.0;
 
   @override
-  void initState() {
-    super.initState();
-
-    // Retrieve upcoming movies
-    movieListBloc.getUpcomingMovies();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: movieListBloc.upcomingMoviesList,
-      builder: (context, AsyncSnapshot<MovieList> snapshot) {
-        if (snapshot.hasData) {
-          return buildListView(context, snapshot.data);
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              snapshot.error.toString(),
-            ),
-          );
-        }
-        return _buildShowcaseListShimmerView(context);
-      },
-    );
+    if (widget.sMovies.hasData) {
+      // Populate list view with the data
+      return _buildShowcaseListView(context, widget.sMovies.data);
+    } else if (widget.sMovies.hasError) {
+      // Display loading indicator
+      return Center(child: Text(widget.sMovies.error.toString()));
+    }
+    // Display shimmer loading view
+    return _buildMovieShowcaseDetailsShimmerView(context);
   }
 
   onShowcasedMovieChanged(Movie movie) {
@@ -60,11 +48,7 @@ class ShowcaseListViewState extends BaseListView<ShowcaseListView, MovieList> {
     });
   }
 
-  @override
-  Widget buildListView(
-    BuildContext context,
-    MovieList movies,
-  ) {
+  Widget _buildShowcaseListView(BuildContext context, MovieList movies) {
     return Container(
       child: Column(
         children: <Widget>[
@@ -180,9 +164,7 @@ class ShowcaseListViewState extends BaseListView<ShowcaseListView, MovieList> {
     );
   }
 
-  Widget _buildShowcaseListShimmerView(
-    BuildContext context,
-  ) {
+  Widget _buildShowcaseListShimmerView(BuildContext context) {
     var shimmerResults = List<String>(3);
     return Container(
       child: Column(

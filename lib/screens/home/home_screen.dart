@@ -101,7 +101,12 @@ class HomeScreenState extends State<HomeScreen> {
     return Container(
       child: Column(
         children: <Widget>[
-          ShowcaseListView(),
+          StreamBuilder(
+            stream: bloc.popularMoviesList,
+            builder: (context, AsyncSnapshot<MovieList> snapshot) {
+              return ShowcaseListView(sMovies: snapshot);
+            },
+          ),
         ],
       ),
     );
