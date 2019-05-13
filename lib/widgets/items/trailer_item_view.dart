@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/constants/fonts.dart';
 import 'package:flutter_moviehub/model/trailer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget buildTrailerItemView(BuildContext context, Trailer trailer) {
   var width = MediaQuery.of(context).size.width;
@@ -18,13 +19,14 @@ Widget buildTrailerItemView(BuildContext context, Trailer trailer) {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Container(
+        color: Colors.black,
         height: height,
         child: Stack(
           children: <Widget>[
             _buildThumbnailView(trailer.key),
             _buildBackdropBottomGradientOverlayView(),
             _buildDetailView(trailer),
-            _buildPlayButtonView(),
+            _buildPlayButtonView(trailer.key),
           ],
         ),
       ),
@@ -64,11 +66,19 @@ Widget _buildBackdropBottomGradientOverlayView() {
   );
 }
 
-Widget _buildPlayButtonView() {
+Widget _buildPlayButtonView(String videoKey) {
   return Container(
     child: Center(
       child: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          // https://groups.google.com/forum/#!topic/flutter-dev/J3ujgdOuG98
+          var url = 'https://www.youtube.com/watch?v=$videoKey';
+          if (await canLaunch(url)) {
+            await launch(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
         backgroundColor: Colors.red,
         child: Icon(
           Icons.play_arrow,
