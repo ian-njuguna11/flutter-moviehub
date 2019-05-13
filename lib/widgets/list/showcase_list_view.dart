@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/constants/fonts.dart';
 import 'package:flutter_moviehub/model/models.dart';
-import 'package:flutter_moviehub/widgets/items/shimmer/showcase_item_shimmer_view.dart';
+import 'package:flutter_moviehub/widgets/items/showcase_item_view_shimmer.dart';
 import 'package:flutter_moviehub/widgets/items/showcase_item_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shimmer/shimmer.dart';

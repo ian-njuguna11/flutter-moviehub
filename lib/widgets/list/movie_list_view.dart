@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/model/models.dart';
 import 'package:flutter_moviehub/widgets/items/movie_item_view.dart';
-import 'package:flutter_moviehub/widgets/items/shimmer/movie_item_shimmer_view.dart';
+import 'package:flutter_moviehub/widgets/items/movie_item_view_shimmer.dart';
 
 class MovieListView extends StatelessWidget {
   final AsyncSnapshot<MovieList> listItems;
