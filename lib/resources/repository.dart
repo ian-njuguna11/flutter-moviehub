@@ -21,6 +21,6 @@ class Repository {
 
   Future<Movie> getMovie(int movieId) => apiProvider.getMovie(movieId);
 
-  Future<Trailer> getMovieTrailers(int movieId) =>
+  Future<TrailerList> getMovieTrailers(int movieId) =>
       apiProvider.getMovieTrailers(movieId);
 }

@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter_moviehub/blocs/base_bloc.dart';
-import 'package:flutter_moviehub/model/trailer.dart';
+import 'package:flutter_moviehub/model/trailer_list.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TrailerListBloc extends BaseBloc {
-  final _fetchMovieTrailers = PublishSubject<Trailer>();
-  Observable<Trailer> get movieTrailersStream => _fetchMovieTrailers.stream;
+  final _fetchMovieTrailers = PublishSubject<TrailerList>();
+  Observable<TrailerList> get movieTrailersStream => _fetchMovieTrailers.stream;
 
   @override
   void dispose() async {
@@ -18,7 +18,7 @@ class TrailerListBloc extends BaseBloc {
   }
 
   void getMovieTrailers(int movieId) async {
-    Trailer trailer = await repository.getMovieTrailers(movieId);
-    _fetchMovieTrailers.sink.add(trailer);
+    TrailerList trailerList = await repository.getMovieTrailers(movieId);
+    _fetchMovieTrailers.sink.add(trailerList);
   }
 }

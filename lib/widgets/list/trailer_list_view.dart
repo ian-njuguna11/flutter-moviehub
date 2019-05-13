@@ -3,10 +3,10 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_moviehub/model/trailer.dart';
+import 'package:flutter_moviehub/model/trailer_list.dart';
 
 class TrailerListView extends StatelessWidget {
-  final AsyncSnapshot<Trailer> listItems;
+  final AsyncSnapshot<TrailerList> listItems;
 
   const TrailerListView({Key key, this.listItems}) : super(key: key);
 
@@ -24,7 +24,7 @@ class TrailerListView extends StatelessWidget {
     return _buildShimmerView(context);
   }
 
-  Widget _buildListView(BuildContext context, Trailer trailer){ 
+  Widget _buildListView(BuildContext context, TrailerList trailers){ 
     return null;
   }
 

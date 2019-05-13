@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/blocs/trailer_list_bloc.dart';
 import 'package:flutter_moviehub/blocs/trailer_list_bloc_provider.dart';
-import 'package:flutter_moviehub/model/trailer.dart';
+import 'package:flutter_moviehub/model/trailer_list.dart';
 import 'package:flutter_moviehub/widgets/list/trailer_list_view.dart';
 
 class TrailerListScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class TrailerListScreenState extends State<TrailerListScreen> {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: bloc.movieTrailersStream,
-      builder: (BuildContext context, AsyncSnapshot<Trailer> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<TrailerList> snapshot) {
         return TrailerListView(listItems: snapshot);
       },
     );

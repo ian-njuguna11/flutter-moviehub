@@ -32,11 +32,11 @@ class ApiProvider {
     }
   }
 
-  Future<Trailer> getMovieTrailers(int movieId) async {
+  Future<TrailerList> getMovieTrailers(int movieId) async {
     final response = await client.get('$baseUrl/$movieId/videos?api_key=$apiKey');
     if(response.statusCode == HttpStatus.ok) {
       print(response.request.url.toString());
-      return Trailer(json.decode(response.body));
+      return TrailerList(json.decode(response.body));
     } else {
       throw Exception('Failed to love movie trailers');
     }

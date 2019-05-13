@@ -7,3 +7,4 @@ export 'movie.dart';
 export 'movie_list.dart';
 export 'genre.dart';
 export 'trailer.dart';
+export 'trailer_list.dart';
