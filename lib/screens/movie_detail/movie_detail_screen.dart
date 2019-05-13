@@ -4,8 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/blocs/movie_detail_bloc_provider.dart';
+import 'package:flutter_moviehub/blocs/trailer_list_bloc_provider.dart';
 import 'package:flutter_moviehub/constants/fonts.dart';
 import 'package:flutter_moviehub/model/movie.dart';
+import 'package:flutter_moviehub/screens/movie_detail/trailer_list_screen.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_moviehub/blocs/movie_detail_bloc.dart';
 
@@ -380,7 +382,11 @@ class MovieDetailScreenState extends State<MovieDetailScreen>
             controller: tController,
             children: <Widget>[
               TestScreen(),
-              TestScreen(),
+              TrailerListBlocProvider(
+                child: TrailerListScreen(
+                  movieId: widget.movieId,
+                ),
+              ),
               TestScreen(),
             ],
           ),

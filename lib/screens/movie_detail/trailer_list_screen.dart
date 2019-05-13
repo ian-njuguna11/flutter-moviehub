@@ -5,19 +5,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/blocs/trailer_list_bloc.dart';
 import 'package:flutter_moviehub/blocs/trailer_list_bloc_provider.dart';
+import 'package:flutter_moviehub/model/trailer.dart';
+import 'package:flutter_moviehub/widgets/list/trailer_list_view.dart';
 
-class TrailerScreen extends StatefulWidget {
+class TrailerListScreen extends StatefulWidget {
   final int movieId;
 
-  const TrailerScreen({Key key, this.movieId}) : super(key: key);
+  const TrailerListScreen({Key key, this.movieId}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return null;
+    return TrailerListScreenState();
   }
 }
 
-class TrailerScreenState extends State<TrailerScreen> {
+class TrailerListScreenState extends State<TrailerListScreen> {
   TrailerListBloc bloc;
 
   @override
@@ -35,6 +37,11 @@ class TrailerScreenState extends State<TrailerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return null;
+    return StreamBuilder(
+      stream: bloc.movieTrailersStream,
+      builder: (BuildContext context, AsyncSnapshot<Trailer> snapshot) {
+        return TrailerListView(listItems: snapshot);
+      },
+    );
   }
 }
