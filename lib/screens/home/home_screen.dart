@@ -104,7 +104,7 @@ class HomeScreenState extends State<HomeScreen> {
           StreamBuilder(
             stream: bloc.popularMoviesList,
             builder: (context, AsyncSnapshot<MovieList> snapshot) {
-              return ShowcaseListView(sMovies: snapshot);
+              return ShowcaseListView(listItems: snapshot);
             },
           ),
         ],
@@ -120,7 +120,7 @@ class HomeScreenState extends State<HomeScreen> {
           StreamBuilder(
             stream: bloc.popularMoviesList,
             builder: (context, AsyncSnapshot<MovieList> snapshot) {
-              return MovieListView(sMovies: snapshot);
+              return MovieListView(listItems: snapshot);
             },
           ),
         ],
@@ -136,7 +136,7 @@ class HomeScreenState extends State<HomeScreen> {
           StreamBuilder(
             stream: bloc.topRatedMoviesList,
             builder: (context, AsyncSnapshot<MovieList> snapshot) {
-              return MovieListView(sMovies: snapshot);
+              return MovieListView(listItems: snapshot);
             },
           ),
         ],

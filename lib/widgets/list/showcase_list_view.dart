@@ -12,9 +12,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ShowcaseListView extends StatefulWidget {
-  final AsyncSnapshot<MovieList> sMovies;
+  final AsyncSnapshot<MovieList> listItems;
 
-  ShowcaseListView({Key key, this.sMovies}) : super(key: key);
+  const ShowcaseListView({Key key, this.listItems}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,12 +29,12 @@ class ShowcaseListViewState extends State<ShowcaseListView> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.sMovies.hasData) {
+    if (widget.listItems.hasData) {
       // Populate list view with the data
-      return _buildShowcaseListView(context, widget.sMovies.data);
-    } else if (widget.sMovies.hasError) {
+      return _buildShowcaseListView(context, widget.listItems.data);
+    } else if (widget.listItems.hasError) {
       // Display loading indicator
-      return Center(child: Text(widget.sMovies.error.toString()));
+      return Center(child: Text(widget.listItems.error.toString()));
     }
     // Display shimmer loading view
     return _buildShowcaseListShimmerView(context);

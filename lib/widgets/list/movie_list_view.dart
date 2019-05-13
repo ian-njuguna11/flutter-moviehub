@@ -8,18 +8,19 @@ import 'package:flutter_moviehub/widgets/items/movie_item_view.dart';
 import 'package:flutter_moviehub/widgets/items/shimmer/movie_item_shimmer_view.dart';
 
 class MovieListView extends StatelessWidget {
-  final AsyncSnapshot<MovieList> sMovies;
+  final AsyncSnapshot<MovieList> listItems;
 
-  MovieListView({Key key, this.sMovies}) : super(key: key);
+  const MovieListView({Key key, this.listItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (sMovies.hasData) {
-      // Populate list view with the data
-      return _buildListView(context, sMovies.data);
-    } else if (sMovies.hasError) {
-      // Display loading indicator
-      return Center(child: Text(sMovies.error.toString()));
+    // Populate list view with the data
+    if (listItems.hasData) {
+      return _buildListView(context, listItems.data);
+    }
+    // Display loading indicator
+    else if (listItems.hasError) {
+      return Center(child: Text(listItems.error.toString()));
     }
     // Display shimmer loading view
     return _buildShimmerListView(context);
