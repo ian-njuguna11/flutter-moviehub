@@ -373,6 +373,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen>
             Tab(icon: Icon(Icons.movie)),
             Tab(icon: Icon(Icons.photo)),
           ],
+          indicatorWeight: 5,
         ),
         Container(
           height: 500,
