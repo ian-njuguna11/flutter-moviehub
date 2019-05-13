@@ -39,7 +39,6 @@ class MovieDetailScreenState extends State<MovieDetailScreen>
   void didChangeDependencies() {
     bloc = MovieDetailBlocProvider.of(context);
     bloc.getMovie(widget.movieId);
-    bloc.getMovieTrailers(widget.movieId);
     super.didChangeDependencies();
   }
 

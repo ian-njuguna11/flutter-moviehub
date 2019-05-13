@@ -7,32 +7,17 @@ import 'package:flutter_moviehub/model/models.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieDetailBloc extends BaseBloc {
-  final _movieId = PublishSubject<int>();
-
   final _fetchMovie = PublishSubject<Movie>();
   Observable<Movie> get movieDetailStream => _fetchMovie.stream;
 
-  final _fetchMovieTrailers = PublishSubject<Trailer>();
-  Observable<Trailer> get movieTrailersStream => _fetchMovieTrailers.stream;
-
   @override
   void dispose() async {
-    super.dispose();
-    _movieId.close();
-
     await _fetchMovie.drain();
     _fetchMovie.close();
-
-    await _fetchMovieTrailers.drain();
-    _fetchMovieTrailers.close();
+    super.dispose();
   }
   void getMovie(int movieId) async {
     Movie movie = await repository.getMovie(movieId);
     _fetchMovie.sink.add(movie);
-  }
-
-  void getMovieTrailers(int movieId) async {
-    Trailer trailer = await repository.getMovieTrailers(movieId);
-    _fetchMovieTrailers.sink.add(trailer);
   }
 }
