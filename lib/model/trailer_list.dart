@@ -8,12 +8,12 @@ import 'base_model.dart';
 
 class TrailerList extends BaseModel {
   int id;
-  List<Trailer> trailers;
+  List<Trailer> results = [];
 
   TrailerList(Map<String, dynamic> data) {
     this.id = data['id'];
     for (int i = 0; i < data['results'].length; i++) {
-      this.trailers.add(Trailer(data['results'][i]));
+      this.results.add(Trailer(data['results'][i]));
     }
   }
 }

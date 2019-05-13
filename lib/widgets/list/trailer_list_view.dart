@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_moviehub/model/trailer_list.dart';
+import 'package:flutter_moviehub/widgets/items/trailer_item_view.dart';
 
 class TrailerListView extends StatelessWidget {
   final AsyncSnapshot<TrailerList> listItems;
@@ -13,22 +14,28 @@ class TrailerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Populate list view with the data
-    if(listItems.hasData) {
+    if (listItems.hasData) {
       return _buildListView(context, listItems.data);
     }
     // Display loading indicator
-    else if(listItems.hasError) {
+    else if (listItems.hasError) {
       return Center(child: Text(listItems.error.toString()));
     }
     // Display shimmer loading view
     return _buildShimmerView(context);
   }
 
-  Widget _buildListView(BuildContext context, TrailerList trailers){ 
-    return null;
+  Widget _buildListView(BuildContext context, TrailerList trailers) {
+    return ListView.builder(
+      itemCount: trailers.results.length,
+      itemBuilder: (BuildContext context, int index) {
+        return buildTrailerItemView(context, trailers.results[index]);
+      },
+    );
   }
 
   Widget _buildShimmerView(BuildContext context) {
-    return null;
+    // TODO: Only a stub, update to shimmer view
+    return Center(child: CircularProgressIndicator());
   }
 }
