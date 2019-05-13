@@ -22,7 +22,7 @@ class Result {
   String iso_3166_1;
   String key;
   String name;
-  int site;
+  int size;
   String type;
 
   Result(Map<String, dynamic> data) {
@@ -31,7 +31,7 @@ class Result {
     this.iso_3166_1 = data['iso_3166_1'];
     this.key = data['key'];
     this.name = data['name'];
-    this.site = data['site'];
+    this.size = data['size'];
     this.type = data['type'];
   }
 }

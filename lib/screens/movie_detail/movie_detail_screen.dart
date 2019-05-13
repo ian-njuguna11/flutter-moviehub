@@ -20,8 +20,20 @@ class MovieDetailScreen extends StatefulWidget {
   }
 }
 
-class MovieDetailScreenState extends State<MovieDetailScreen> {
+class MovieDetailScreenState extends State<MovieDetailScreen>
+    with SingleTickerProviderStateMixin {
   MovieDetailBloc bloc;
+  TabController tController;
+  double currentPageValue;
+
+  @override
+  void initState() {
+    tController = TabController(initialIndex: 0, length: 3, vsync: this);
+    tController.addListener(() {
+      print("Current tab controller page ${tController.index}");
+    });
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -33,6 +45,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   void dispose() {
+    tController.dispose();
     bloc.dispose();
     super.dispose();
   }
@@ -48,50 +61,50 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
 
   Widget _buildAppBar() {
     return AppBar(
-        title: Image.asset(
-          'images/moviehub.png',
-          height: 30,
+      title: Image.asset(
+        'images/moviehub.png',
+        height: 30,
+      ),
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      elevation: 0.0,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
         ),
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        elevation: 0.0,
-        leading: IconButton(
+        onPressed: () => Navigator.pop(context),
+      ),
+      actions: <Widget>[
+        IconButton(
           icon: Icon(
-            Icons.arrow_back,
+            Icons.favorite_border,
             color: Colors.white,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {},
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.favorite_border,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-        ],
-      );
+      ],
+    );
   }
 
   Widget _buildBody() {
     return StreamBuilder(
-        stream: bloc.movieDetailStream,
-        builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
-          if (snapshot.hasData) {
-            return _buildMovieDetailView(context, snapshot.data);
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                snapshot.error.toString(),
-              ),
-            );
-          }
+      stream: bloc.movieDetailStream,
+      builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
+        if (snapshot.hasData) {
+          return _buildMovieDetailView(context, snapshot.data);
+        } else if (snapshot.hasError) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(
+              snapshot.error.toString(),
+            ),
           );
-        },
-      );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 
   Widget _buildMovieDetailView(BuildContext context, Movie movie) {
@@ -104,6 +117,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
             _buildBannerView(context, movie),
             _buildMovieDescription(movie.overview),
             _buildMovieActions(),
+            _buildSectionTabView(),
           ],
         ),
       ),
@@ -345,6 +359,47 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
             onPressed: () {},
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTabView() {
+    return Column(
+      children: <Widget>[
+        TabBar(
+          controller: tController,
+          tabs: <Widget>[
+            Tab(icon: Icon(Icons.info)),
+            Tab(icon: Icon(Icons.movie)),
+            Tab(icon: Icon(Icons.photo)),
+          ],
+        ),
+        Container(
+          height: 500,
+          child: TabBarView(
+            controller: tController,
+            children: <Widget>[
+              TestScreen(),
+              TestScreen(),
+              TestScreen(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TestScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.lime,
+      child: Center(
+        child: Text(
+          "Test Screen",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        ),
       ),
     );
   }
