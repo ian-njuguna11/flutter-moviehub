@@ -3,7 +3,8 @@
 // license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_moviehub/blocs/trailer_bloc.dart';
+import 'package:flutter_moviehub/blocs/trailer_list_bloc.dart';
+import 'package:flutter_moviehub/blocs/trailer_list_bloc_provider.dart';
 
 class TrailerScreen extends StatefulWidget {
   final int movieId;
@@ -17,11 +18,11 @@ class TrailerScreen extends StatefulWidget {
 }
 
 class TrailerScreenState extends State<TrailerScreen> {
-  TrailerBloc bloc;
+  TrailerListBloc bloc;
 
   @override
   void didChangeDependencies() {
-    bloc = TrailerBloc();
+    bloc = TrailerListBlocProvider.of(context);
     bloc.getMovieTrailers(widget.movieId);
     super.didChangeDependencies();
   }
