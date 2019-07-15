@@ -48,8 +48,6 @@ A simple Flutter application that retrieves movies from the TheMovieDB API using
 
 ![demo-1](https://github.com/joshuadeguzman/flutter_moviehub/blob/master/.github/demo_1.gif)
 
-![demo-2](https://github.com/joshuadeguzman/flutter_moviehub/blob/master/.github/demo_2.png)
-
 ### License
 
 Flutter MovieHub is released under the BSD-3 Clause License. See [LICENSE](https://github.com/joshuadeguzman/flutter_moviehub/blob/master/LICENSE) for details.
